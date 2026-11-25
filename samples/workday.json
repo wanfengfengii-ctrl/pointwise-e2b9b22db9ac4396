@@ -1,0 +1,49 @@
+{
+  "credential": "qingyu-night-shift",
+  "S0": {
+    "snapshot": "S0",
+    "members": [
+      {
+        "partition": "甲库", "version": "A1", "batch": "A1", "generation": 1,
+        "dictionary": [[1, "运行"]],
+        "events": [
+          {"partition": "甲库", "key": "A-冷机", "status": "运行", "value": 4.10, "sequence": 10, "source": "A网关/10"},
+          {"partition": "甲库", "key": "A-冷机", "status": "运行", "value": 0.20, "sequence": 11, "source": "A网关/11"}
+        ]
+      },
+      {
+        "partition": "乙库", "version": "B1", "batch": "B1", "generation": 1,
+        "dictionary": [[1, "停机"]],
+        "events": [
+          {"partition": "乙库", "key": "B-冷机", "status": "停机", "value": 7.30, "sequence": 20, "source": "B网关/20"}
+        ]
+      }
+    ]
+  },
+  "A2": {
+    "snapshot": "A2-only",
+    "members": [
+      {
+        "partition": "甲库", "version": "A2", "batch": "A2", "generation": 2,
+        "dictionary": [[1, "停机"]],
+        "events": [
+          {"partition": "甲库", "key": "A-冷机", "status": "停机", "value": 0.05, "sequence": 12, "source": "A网关/12"}
+        ]
+      }
+    ]
+  },
+  "S1": {
+    "snapshot": "S1",
+    "members": [
+      {"partition": "甲库", "version": "A1"},
+      {
+        "partition": "乙库", "version": "B2", "batch": "B2", "generation": 2,
+        "dictionary": [[1, "停机"], [2, "运行"]],
+        "events": [
+          {"partition": "乙库", "key": "B-冷机", "status": "停机", "value": 5.60, "sequence": 21, "source": "B网关/21"},
+          {"partition": "乙库", "key": "B-冷机", "status": "运行", "value": 1.10, "sequence": 22, "source": "B网关/22"}
+        ]
+      }
+    ]
+  }
+}

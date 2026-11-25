@@ -2,6 +2,6 @@
   "version": 1,
   "kind": "cli",
   "setup": [],
-  "verify": ["python3", "-B", "check_project.py"],
-  "demo": ["python3", "-B", "-m", "src.recovery.entrypoints", "demo"]
+  "verify": ["python3", "-B", "retirement_scenario.py", "verify"],
+  "demo": ["python3", "-B", "retirement_scenario.py", "demo"]
 }

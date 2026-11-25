@@ -4,6 +4,7 @@ import multiprocessing as mp
 import os
 import signal
 import sys
+import unittest
 from decimal import Decimal
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -195,6 +196,16 @@ def interrupted_collection(root):
         return {"interrupted_object": shared, "recovered": recovered}
 
 
+def run_regression():
+    """Execute the original unittest regression, propagating a non-zero exit."""
+    loader = unittest.defaultTestLoader
+    suite = loader.discover('tests', top_level_dir='.')
+    result = unittest.TextTestRunner(verbosity=1).run(suite)
+    if not result.wasSuccessful():
+        raise SystemExit(1)
+    return result.testsRun
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=("baseline", "verify", "demo"))
@@ -204,7 +215,11 @@ def main():
         if mode == "baseline":
             result = baseline(root)
         else:
-            result = {"normal_exit": reader_case(root / "normal", kill=False)}
+            if mode == "verify":
+                result = {"regression_tests": run_regression()}
+            else:
+                result = {}
+            result["normal_exit"] = reader_case(root / "normal", kill=False)
             if mode == "verify":
                 result["killed_reader"] = reader_case(root / "killed", kill=True)
                 result["interrupted_collector"] = interrupted_collection(root / "restart")
